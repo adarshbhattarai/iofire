@@ -3,8 +3,26 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
-
+angular.module('starter', [
+'ionic',
+'firebase',
+'starter.welcome',
+'starter.login'
+])
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('intro', {
+    url: '/',
+    templateUrl: 'js/welcome/welcome.html',
+      controller: 'WelcomeController'
+  })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'js/home/login.html',
+      controller: 'LoginCtrl'
+    })
+  $urlRouterProvider.otherwise("/");
+})
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -21,4 +39,4 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
-})
+});
